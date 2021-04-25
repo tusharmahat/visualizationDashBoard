@@ -9,18 +9,15 @@ the dataset.
     jQuery
     D3js
 ## Features:
-    -Users can select the year and column(population, density, migration rate..)
-     from the dropdowns.
-    -It shows scatter plot at first, but user can choose bar graph according to 
-     their preference.
-    -Hovering on circle on scatter plot shows the size of the data for a 
-     particular country.
-    -Clicking on the circle will open the yearly data of that country, easy to 
-     compare.
-    -On the side there is a donut which shows population of the continent, hovering
-     on the arcs shows population of the continent.
-    -Clicking on the arc shows the statistics of the continent in bar chart, easy 
-     to compare countries data for the continent.
+    -Select the year and column(population, density, migration rate..) from the dropdowns.
+    -It shows scatter plot at first, but user can choose bar graph according to their 
+     preference.
+    -Hovering on circle on scatter plot shows the size of the data for a particular country.
+    -Clicking on the circle will open the yearly data of that country, easy to compare.
+    -Donut on the right which shows population of the continent, hovering on the arcs shows
+     population of the continent.
+    -Clicking on the arc shows the statistics of the continent in bar chart, easy to compare
+     countries data for the continent.
     
 link: https://cutt.ly/d3visualization
 
