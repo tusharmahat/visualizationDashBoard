@@ -14,7 +14,7 @@ This is my final project for information and visualization course. I have used t
     On the side there is a donut which shows population of the continent, hovering on the arcs shows population of the continent.
     Clicking on the arc shows the statistics of the continent in bar chart, easy to compare countries data for the continent.
     
-link: http://app-e6dd2668-b213-4000-bbb6-d95733b607f1.cleverapps.io/
+link: https://cutt.ly/d3visualization
 
 ## Screenshots
 ### World statistics in scatter plot
