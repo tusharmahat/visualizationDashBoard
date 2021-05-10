@@ -301,6 +301,7 @@ function drawBarGraph(svg, filteredDataByYear, MAX_VAL, MIN_VAL) {
     .attr("x", (d) => {
       return 0;
     })
+    .style("fill", "#fff")
     .transition()
     .duration(TRANS_DURATION)
     .attr("x", (d) => {
@@ -310,7 +311,6 @@ function drawBarGraph(svg, filteredDataByYear, MAX_VAL, MIN_VAL) {
       let val = d[selectedColumn];
       return d.Country + " (" + parseFloat(val).toFixed(2) + ")";
     })
-    .style("fill", "black")
     .style("cursor", "pointer");
 }
 
@@ -365,6 +365,7 @@ function drawDonutChart(filteredDataByYear) {
     .text(`World Population: ${worldPopn}`)
     .attr("x", arcWidth / 4.5 + "px")
     .attr("y", arcHeight / 2 + "px")
+    .style("fill", "#fff")
     .attr("font-weight", "900");
 
   // create unsorted pie
@@ -424,6 +425,7 @@ function drawDonutChart(filteredDataByYear) {
             ).toFixed(2)}%)`
           )
           .css({
+            color: "#fff",
             display: "block",
             "text-align": "center",
             width: "12rem",
@@ -437,6 +439,7 @@ function drawDonutChart(filteredDataByYear) {
       .on("mouseout", function (event) {
         //hide hover label
         $(".markerHover").css({
+          color: "#000",
           display: "none",
           width: "initial",
           "background-color": "transparent",
@@ -521,11 +524,12 @@ function appendContinentGraph() {
 
   //button styling
   $(".title1>#world").css({
-    "background-color": "#4CAF50",
+    "background-color": "#7f1d1d",
     border: "none",
     "border-radius": "5px",
     color: "white",
-    padding: "0.3rem 0.5rem",
+    margin: "2px 0 0 0",
+    padding: "0.2rem 0.5rem",
     "text-align": "center",
     "text-decoration": "none",
     display: "inline-block",
@@ -608,6 +612,7 @@ function appendContinentGraph() {
     .attr("x", (d) => {
       return 0;
     })
+    .style("fill", "#fff")
     .transition()
     .duration(TRANS_DURATION)
     .attr("x", (d) => {
@@ -617,7 +622,6 @@ function appendContinentGraph() {
       let val = d[selectedColumn];
       return d.Country + " (" + parseFloat(val).toFixed(2) + ")";
     })
-    .style("fill", "black")
     .style("cursor", "pointer");
   $(".title1> #world").click(function () {
     if (lineGraphOpen) {
@@ -651,7 +655,7 @@ function drawLineGraph(d) {
     .attr("height", height + PADDING / 4)
     .style("position", "absolute")
     .style("z-index", "100")
-    .style("border", "1px solid #000")
+    .style("border", "1px solid #fff")
     .style("border-radius", "5px")
     .style("background-color", "lightgray")
     .style("top", PADDING / 1.65 + "px");
@@ -696,7 +700,9 @@ function drawLineGraph(d) {
     .tickFormat(d3.format("d"));
   lineGraph
     .append("g")
+    .attr("stroke", "#000")
     .call(X_axis)
+    .attr("stroke", "#000")
     .attr("transform", `translate(${PADDING * 1.2},${height - PADDING / 1.1})`)
     .selectAll("text")
     .style("text-anchor", "end")
@@ -707,7 +713,10 @@ function drawLineGraph(d) {
   lineGraph
     .append("g")
     .call(Y_axis)
+    .attr("stroke", "#000")
     .attr("transform", `translate(${PADDING * 1.5},0)`);
+  lineGraph.selectAll("path").attr("stroke", "#000");
+  lineGraph.selectAll("line").attr("stroke", "#000");
 
   //append X-axis label
   lineGraph
@@ -929,6 +938,7 @@ function addHiddenCloseBtn() {
 
   //styling
   $("#slide").css({
+    border: "1px solid #fff",
     height: height + PADDING / 3.65,
     left: width + "px",
     top: PADDING / 1.65,
