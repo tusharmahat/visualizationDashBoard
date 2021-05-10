@@ -700,9 +700,7 @@ function drawLineGraph(d) {
     .tickFormat(d3.format("d"));
   lineGraph
     .append("g")
-    .attr("stroke", "#000")
     .call(X_axis)
-    .attr("stroke", "#000")
     .attr("transform", `translate(${PADDING * 1.2},${height - PADDING / 1.1})`)
     .selectAll("text")
     .style("text-anchor", "end")
@@ -717,6 +715,7 @@ function drawLineGraph(d) {
     .attr("transform", `translate(${PADDING * 1.5},0)`);
   lineGraph.selectAll("path").attr("stroke", "#000");
   lineGraph.selectAll("line").attr("stroke", "#000");
+  lineGraph.selectAll("text").attr("stroke", "#000");
 
   //append X-axis label
   lineGraph
