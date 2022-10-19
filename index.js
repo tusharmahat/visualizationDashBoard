@@ -162,7 +162,7 @@ function drawScatterPlot(svg, filteredDataByYear, scaleRad) {
   //if linegraph is already open and the selection changed open the line graph directly
 
   //world-110m.geojson to draw map
-  d3.json("http://enjalot.github.io/wwsd/data/world/world-110m.geojson").then(
+  d3.json("world-110m.geojson").then(
     (data) => {
       g.selectAll("path")
         .data(data.features)
