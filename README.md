@@ -17,7 +17,7 @@ the dataset.
     -Click on the arc to show the statistics of the continent in bar chart, easy to compare
      countries data for the continent.
     
-link: https://cutt.ly/d3visualization
+link: https://infodashboard.herokuapp.com/
 
 ## Screenshots
 ### World statistics in scatter plot
