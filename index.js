@@ -6,8 +6,8 @@ const TRANS_DURATION = 1000; //transition duration
 const PADDING = 60; //padding
 
 //svg dimensions
-const width = 909;
-const height = 600;
+var width = 0.675 * $(window).width();
+var height = 0.9 * $(window).height();
 
 //colors
 const MAP_COLOR = "rgba(50,150,0.3,0.5)";
@@ -17,6 +17,7 @@ const SVG_COLOR = "rgb(189,250,255)";
 const BAR_COLOR = "rgb(0,150,100)";
 const BAR_HOVER = "rgb(0,100,220)";
 const CHART_COLOR = "rgb(0,128,128)";
+const HOVER_TEXT_COLOR = "#fff";
 
 //heights for bar graphs
 const BAR_HEIGHT = 30;
@@ -117,8 +118,7 @@ function draw() {
     .append("svg")
     .attr("class", "scatterPlot")
     .attr("width", width)
-    .attr("height", height)
-    .style("border-radius", "5px");
+    .attr("height", height);
 
   if (lineGraphOpen) {
     //show line graph
@@ -154,8 +154,8 @@ function drawScatterPlot(svg, filteredDataByYear, scaleRad) {
   //projection for world map
   const projection = d3
     .geoMercator()
-    .scale(142)
-    .translate([width / 2, height / 1.42]);
+    .scale(0.155 * width)
+    .translate([width / 2, height / 1.45]);
 
   const path = d3.geoPath().projection(projection); //map path function
 
@@ -208,8 +208,9 @@ function drawScatterPlot(svg, filteredDataByYear, scaleRad) {
           //show label with country name and the selectedColumn value
           markerHover
             .style("top", event.pageY + PADDING / 3 + "px")
-            .style("left", event.pageX - PADDING + "px")
-            .style("background-color", "lightgray")
+            .style("left", event.pageX + PADDING / 10 + "px")
+            .style("background-color", "#D64933")
+            .style("padding", "3px")
             .style("display", "block")
             .text(`${d.Country}: ${d[selectedColumn]}`);
         })
@@ -284,14 +285,24 @@ function drawBarGraph(svg, filteredDataByYear, MAX_VAL, MIN_VAL) {
     .attr("fill", CHART_COLOR)
     .style("cursor", "pointer");
 
-  chart.on("click", function (event, d) {
-    // remove old lineGraph if any
-    $(".lineGraph").remove();
+  chart.on("mouseover", function (event, d) {
+    //show label with country name and the selectedColumn value
+    clickMeLabel
+      .style("top", event.pageY + "px")
+      .style("left", event.pageX + "px")
+      .style("display", "block")
+      .text(`Click for yearly data`);
+  })
+    .on("mouseout", function (event) {
+      clickMeLabel.style("display", "none"); //hide the label
+    }).on("click", function (event, d) {
+      // remove old lineGraph if any
+      $(".lineGraph").remove();
 
-    selectedCountry = d;
-    // append yearly line graph to compare the selectedColumn stats of a country
-    drawLineGraph(d);
-  });
+      selectedCountry = d;
+      // append yearly line graph to compare the selectedColumn stats of a country
+      drawLineGraph(d);
+    });
 
   //append text
   chart
@@ -310,7 +321,7 @@ function drawBarGraph(svg, filteredDataByYear, MAX_VAL, MIN_VAL) {
     })
     .text((d, i) => {
       let val = d[selectedColumn];
-      return "     "+ d.Country + " (" + parseFloat(val).toFixed(2) + ")";
+      return "     " + d.Country + " (" + parseFloat(val).toFixed(2) + ")";
     })
     .style("cursor", "pointer");
 }
@@ -344,8 +355,8 @@ function drawDonutChart(filteredDataByYear) {
   ];
 
   // arc dimensions
-  var arcWidth = width / 2.25;
-  var arcHeight = height / 1.5;
+  var arcWidth = width / 2.5;
+  var arcHeight = height;
 
   // radius
   const innerRad = arcWidth / 3.5;
@@ -363,9 +374,9 @@ function drawDonutChart(filteredDataByYear) {
   svgPie
     .append("text")
     .attr("class", "worldPopn")
-    .text(`World Population: ${worldPopn}`)
-    .attr("x", arcWidth / 4.5 + "px")
-    .attr("y", arcHeight / 2 + "px")
+    .text(`World populatoion of ${selectedYear} : ${worldPopn}`)
+    .attr("x", arcWidth / 10 + "px")
+    .attr("y", arcHeight / 1.5 + "px")
     .style("fill", "#fff")
     .attr("font-weight", "900");
 
@@ -440,7 +451,7 @@ function drawDonutChart(filteredDataByYear) {
       .on("mouseout", function (event) {
         //hide hover label
         $(".markerHover").css({
-          color: "#000",
+          color: "#fff",
           display: "none",
           width: "initial",
           "background-color": "transparent",
@@ -520,24 +531,8 @@ function appendContinentGraph() {
   $("#select > #to").css("display", "none");
   //append button to go back to world Stats
   $(".title1").append(
-    "<button id='world'>Go Back to World Statistics</button>"
+    "<button id='world'>Close Line Graph</button>"
   );
-
-  //button styling
-  $(".title1>#world").css({
-    "background-color": "#7f1d1d",
-    border: "none",
-    "border-radius": "5px",
-    color: "white",
-    margin: "2px 0 0 0",
-    padding: "0.2rem 0.5rem",
-    "text-align": "center",
-    "text-decoration": "none",
-    display: "inline-block",
-    float: "right",
-    "font-size": "16px",
-    cursor: "pointer",
-  });
 
   $("#dataOf").html(continentNames[selectedContinent] + " in ");
 
@@ -595,7 +590,16 @@ function appendContinentGraph() {
     .attr("fill", CHART_COLOR)
     .style("cursor", "pointer");
 
-  chart.on("click", function (event, d) {
+  chart.on("mouseover", function (event, d) {
+    //show label with country name and the selectedColumn value
+    clickMeLabel
+      .style("top", event.pageY + "px")
+      .style("left", event.pageX + PADDING + "px")
+      .style("display", "block")
+      .text(`Click for yearly data`);
+  }).on("mouseout", function (event) {
+    clickMeLabel.style("display", "none"); //hide the label
+  }).on("click", function (event, d) {
     // remove old lineGraph if any
     $(".lineGraph").remove();
     //set selected country
@@ -621,10 +625,10 @@ function appendContinentGraph() {
     })
     .text((d, i) => {
       let val = d[selectedColumn];
-      return "     "+d.Country + " (" + parseFloat(val).toFixed(2) + ")";
+      return "     " + d.Country + " (" + parseFloat(val).toFixed(2) + ")";
     })
     .style("cursor", "pointer");
-  
+
   $(".title1> #world").click(function () {
     if (lineGraphOpen) {
       lineGraph
@@ -660,7 +664,7 @@ function drawLineGraph(d) {
     .style("border", "1px solid #fff")
     .style("border-radius", "5px")
     .style("background-color", "lightgray")
-    .style("top", PADDING / 1.65 + "px");
+    .style("top", PADDING / 1.25 + "px");
 
   // max and min for bar graph x-axis
   const MIN_X = Math.min(...uniqueYears);
@@ -857,7 +861,7 @@ function appendLines(countryDataByYear, scale_Y, scale_X) {
 function appendVizOption() {
   //append radio button to select between scatter plot and bar graph
   $(".title1")
-    .append(`<span id="vizLabel">Using <select ><option selected>ScatterPlot</option>
+    .append(`<span id="vizLabel">Show <select ><option selected>ScatterPlot</option>
   <option>Bar Graph</option></select></span>`);
 }
 /**
@@ -872,9 +876,8 @@ function appendSelectColumn() {
   //html tags for options
   Object.keys(oneTuple).forEach(function eachKey(key) {
     if (i >= 2 && i <= 8) {
-      options += `<option ${
-        key == "Population" ? "selected" : ""
-      }>${key}</option>`;
+      options += `<option ${key == "Population" ? "selected" : ""
+        }>${key}</option>`;
     }
     i++;
   });
@@ -909,9 +912,8 @@ function appendSelectYear() {
 
   //html tags for options
   uniqueYears.forEach((eachYear) => {
-    options += `<option ${
-      eachYear == 2020 ? "selected" : ""
-    }>${eachYear}</option>`;
+    options += `<option ${eachYear == 2020 ? "selected" : ""
+      }>${eachYear}</option>`;
   });
 
   $("select").css({
@@ -942,7 +944,7 @@ function addHiddenCloseBtn() {
     border: "1px solid #fff",
     height: height + PADDING / 3.65,
     left: width + "px",
-    top: PADDING / 1.65,
+    top: PADDING / 1.25,
   });
 }
 
@@ -993,17 +995,23 @@ function appendHvrLbl() {
     .style("position", "absolute")
     .style("z-index", "100")
     .style("font-weight", "900")
-    .style("color", "#000")
-    .style("border-radius", "5px");
-   clickMeLabel = d3
+    .style("cursor", "pointer")
+    .style("color", HOVER_TEXT_COLOR)
+    .style("border-radius", "3px");
+
+  //click me label
+  clickMeLabel = d3
     .select("body")
     .append("div")
     .attr("class", "clickMeLabel")
     .style("position", "absolute")
     .style("z-index", "100")
     .style("font-weight", "900")
-    .style("color", "#000")
-    .style("border-radius", "5px");
+    .style("background-color", "#D64933")
+    .style("color", HOVER_TEXT_COLOR)
+    .style("cursor", "pointer")
+    .style("padding", "3px")
+    .style("border-radius", "3px");
 }
 
 /**
@@ -1033,3 +1041,8 @@ function filterDataByYear() {
     return eachValue.Year == selectedYear;
   });
 }
+$(window).resize(function () {
+  width = 0.675 * $(window).width();
+  height = 0.9 * $(window).height();
+  draw();
+});
