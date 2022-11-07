@@ -309,7 +309,7 @@ function drawBarGraph(svg, filteredDataByYear, MAX_VAL, MIN_VAL) {
     })
     .text((d, i) => {
       let val = d[selectedColumn];
-      return d.Country + " (" + parseFloat(val).toFixed(2) + ")";
+      return "     "+ d.Country + " (" + parseFloat(val).toFixed(2) + ")";
     })
     .style("cursor", "pointer");
 }
