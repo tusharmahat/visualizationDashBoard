@@ -19,7 +19,7 @@ const BAR_HOVER = "rgb(0,100,220)";
 const CHART_COLOR = "rgb(0,128,128)";
 
 //heights for bar graphs
-const BAR_HEIGHT = 15;
+const BAR_HEIGHT = 30;
 const TEXT_PADDING_BOTTOM = 2;
 const BAR_AND_TEXT_MARGIN = 0.5;
 
