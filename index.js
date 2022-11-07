@@ -20,7 +20,7 @@ const CHART_COLOR = "rgb(0,128,128)";
 
 //heights for bar graphs
 const BAR_HEIGHT = 30;
-const TEXT_PADDING_BOTTOM = 8;
+const TEXT_PADDING_BOTTOM = 10;
 const BAR_AND_TEXT_MARGIN = 0.5;
 
 //global variables
@@ -299,7 +299,7 @@ function drawBarGraph(svg, filteredDataByYear, MAX_VAL, MIN_VAL) {
       return i * (BAR_HEIGHT + 2) + BAR_HEIGHT - TEXT_PADDING_BOTTOM;
     })
     .attr("x", (d) => {
-      return 5;
+      return 10;
     })
     .style("fill", "#fff")
     .transition()
