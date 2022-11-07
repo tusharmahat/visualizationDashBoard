@@ -27,6 +27,7 @@ const BAR_AND_TEXT_MARGIN = 0.5;
 var worldStats;
 var uniqueYears;
 var markerHover;
+var clickMeLabel;
 var selectedYear;
 var selectedColumn;
 var lineGraph;
@@ -283,7 +284,19 @@ function drawBarGraph(svg, filteredDataByYear, MAX_VAL, MIN_VAL) {
     .attr("fill", CHART_COLOR)
     .style("cursor", "pointer");
 
-  chart.on("click", function (event, d) {
+  chart.on("mouseover", function (event, d) {
+          //show click me label
+          clickMeLabel.style("top", event.pageY + "px")
+            .style("left", event.pageX + "px")
+            .style("background-color", "lightgray")
+            .style("display", "block")
+            .text("Click Me);
+        })
+        .on("mouseout", function (event) {
+          d3.select(this)
+
+          clickMeLabel.style("display", "none"); //hide the label
+        }).on("click", function (event, d) {
     // remove old lineGraph if any
     $(".lineGraph").remove();
 
@@ -622,7 +635,19 @@ function appendContinentGraph() {
       let val = d[selectedColumn];
       return "     "+d.Country + " (" + parseFloat(val).toFixed(2) + ")";
     })
-    .style("cursor", "pointer");
+    .style("cursor", "pointer").on("mouseover", function (event, d) {
+          //show click me label
+          clickMeLabel.style("top", event.pageY + "px")
+            .style("left", event.pageX + "px")
+            .style("background-color", "lightgray")
+            .style("display", "block")
+            .text("Click Me);
+        })
+        .on("mouseout", function (event) {
+          d3.select(this)
+
+          clickMeLabel.style("display", "none"); //hide the label
+        });
   $(".title1> #world").click(function () {
     if (lineGraphOpen) {
       lineGraph
@@ -988,6 +1013,15 @@ function appendHvrLbl() {
     .select("body")
     .append("div")
     .attr("class", "markerHover")
+    .style("position", "absolute")
+    .style("z-index", "100")
+    .style("font-weight", "900")
+    .style("color", "#000")
+    .style("border-radius", "5px");
+   clickMeLabel = d3
+    .select("body")
+    .append("div")
+    .attr("class", "clickMeLabel")
     .style("position", "absolute")
     .style("z-index", "100")
     .style("font-weight", "900")
