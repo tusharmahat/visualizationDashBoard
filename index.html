@@ -49,6 +49,10 @@
       overflow: auto;
     }
 
+    .data {
+      grid-area: data;
+    }
+
     .grid-container {
       max-width: 100%;
       max-height: 100%;
@@ -56,8 +60,8 @@
       grid-template-areas:
         "header1 header1 header2 header2 "
         "main main right right"
-        "main main right right"
-        "main main right right";
+        "main main data data"
+        "main main data data";
       grid-gap: 5px;
       background-color: #1f2937;
       padding: 5px;
@@ -131,6 +135,16 @@
       font-size: 16px;
       cursor: pointer;
     }
+
+    #continentPopn {
+      max-height: 10vh;
+      text-align: center;
+    }
+
+    #worldPopn {
+      background-color: #D64933;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -140,16 +154,10 @@
     <div class="title2"></div>
     <div class="main"></div>
     <div class="pie">
-      <!-- <div id="ins">
-        <h3>Features:</h3>
-        1)Switch between Scatter Plot and Bar Graph<br />
-        2)Switch the column(data) and year<br />
-        3)Hover on markers in Scatter Plot<br />
-        4)Click on the markers in Scatter Plot<br />
-        5)Hover on donut arcs<br />
-        6)Click on donut arcs<br />
-        7)Click on bars
-      </div> -->
+    </div>
+    <div class="data">
+      <p id="worldPopn"></p><br>
+      <div id="continentPopn"></div>
     </div>
   </div>
 </body>

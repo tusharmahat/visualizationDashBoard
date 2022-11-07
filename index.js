@@ -10,10 +10,10 @@ var width = 0.675 * $(window).width();
 var height = 0.9 * $(window).height();
 
 //colors
-const MAP_COLOR = "rgba(50,150,0.3,0.5)";
-const MAP_HOVER = "rgba(255,157,17,0.9)";
-const MARKER_COLOR = "rgba(0,150,255,1)";
-const SVG_COLOR = "rgb(189,250,255)";
+const MAP_COLOR = "#54B435";
+const MAP_HOVER = "#379237";
+const MARKER_COLOR = "red";
+const SVG_COLOR = "#005493";
 const BAR_COLOR = "rgb(0,150,100)";
 const BAR_HOVER = "rgb(0,100,220)";
 const CHART_COLOR = "rgb(0,128,128)";
@@ -197,7 +197,7 @@ function drawScatterPlot(svg, filteredDataByYear, scaleRad) {
         })
         .style("fill", MARKER_COLOR)
         .style("cursor", "pointer")
-        .style("stroke", "#0009FF")
+        .style("stroke", "#fff")
         .on("mouseover", function (event, d) {
           d3.select(this)
             .transition()
@@ -356,7 +356,7 @@ function drawDonutChart(filteredDataByYear) {
 
   // arc dimensions
   var arcWidth = width / 2.5;
-  var arcHeight = height;
+  var arcHeight = height / 1.5;
 
   // radius
   const innerRad = arcWidth / 3.5;
@@ -371,14 +371,8 @@ function drawDonutChart(filteredDataByYear) {
     .attr("width", arcWidth);
 
   //append total world population of the year
-  svgPie
-    .append("text")
-    .attr("class", "worldPopn")
-    .text(`World populatoion of ${selectedYear} : ${worldPopn}`)
-    .attr("x", arcWidth / 10 + "px")
-    .attr("y", arcHeight / 1.5 + "px")
-    .style("fill", "#fff")
-    .attr("font-weight", "900");
+  $("#worldPopn")
+    .html(`In ${selectedYear} the world population: <br> ${worldPopn}`);
 
   // create unsorted pie
   var pie_unsorted = d3
@@ -429,9 +423,9 @@ function drawDonutChart(filteredDataByYear) {
     arcs
       .on("mouseover", function (event, d) {
         //show continenets population on hover
-        $(".markerHover")
+        $("#continentPopn")
           .text(
-            `${continentNames[d.index]} : ${d.value} (${(
+            `Population of ${continentNames[d.index]} in ${selectedYear} : ${d.value} (${(
               (d.value * 100) /
               worldPopn
             ).toFixed(2)}%)`
@@ -439,26 +433,24 @@ function drawDonutChart(filteredDataByYear) {
           .css({
             color: "#fff",
             display: "block",
-            "text-align": "center",
-            width: "12rem",
+            // width: "12rem",
+            position: "relative",
             "background-color": COLORS[d.index],
-            top: height / 2.8 + "px",
-            left: width * 1.14 + "px",
+            top: 0,
+            left: 0,
             padding: "5px",
           });
-        $(".worldPopn").css("display", "none"); //hide world population
       })
       .on("mouseout", function (event) {
         //hide hover label
-        $(".markerHover").css({
+        $("#continentPopn").css({
           color: "#fff",
           display: "none",
           width: "initial",
+          position: "absolute",
           "background-color": "transparent",
           padding: 0,
         });
-
-        $(".worldPopn").css("display", "block"); //show world population
       })
       .on("click", function (event, d) {
         if (lineGraphOpen) {
