@@ -299,13 +299,13 @@ function drawBarGraph(svg, filteredDataByYear, MAX_VAL, MIN_VAL) {
       return i * (BAR_HEIGHT + 2) + BAR_HEIGHT - TEXT_PADDING_BOTTOM;
     })
     .attr("x", (d) => {
-      return 10;
+      return 0;
     })
     .style("fill", "#fff")
     .transition()
     .duration(TRANS_DURATION)
     .attr("x", (d) => {
-      return `${scaleBar(d[selectedColumn]) + BAR_AND_TEXT_MARGIN * 5}`;
+      return `${scaleBar(d[selectedColumn]) + BAR_AND_TEXT_MARGIN * 10}`;
     })
     .text((d, i) => {
       let val = d[selectedColumn];
