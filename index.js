@@ -305,7 +305,7 @@ function drawBarGraph(svg, filteredDataByYear, MAX_VAL, MIN_VAL) {
     .transition()
     .duration(TRANS_DURATION)
     .attr("x", (d) => {
-      return `${scaleBar(d[selectedColumn]) + BAR_AND_TEXT_MARGIN * 10}`;
+      return `${scaleBar(d[selectedColumn]) + BAR_AND_TEXT_MARGIN * 20}`;
     })
     .text((d, i) => {
       let val = d[selectedColumn];
@@ -616,11 +616,11 @@ function appendContinentGraph() {
     .transition()
     .duration(TRANS_DURATION)
     .attr("x", (d) => {
-      return `${scaleBar(d[selectedColumn]) + BAR_AND_TEXT_MARGIN * 5}`;
+      return `${scaleBar(d[selectedColumn]) + BAR_AND_TEXT_MARGIN * 20}`;
     })
     .text((d, i) => {
       let val = d[selectedColumn];
-      return d.Country + " (" + parseFloat(val).toFixed(2) + ")";
+      return "     "+d.Country + " (" + parseFloat(val).toFixed(2) + ")";
     })
     .style("cursor", "pointer");
   $(".title1> #world").click(function () {
