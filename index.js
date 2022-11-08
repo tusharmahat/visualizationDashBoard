@@ -424,15 +424,15 @@ function drawDonutChart(filteredDataByYear) {
       .on("mouseover", function (event, d) {
         //show continenets population on hover
         $("#continentPopn")
-          .text(
-            `Population of ${continentNames[d.index]} in ${selectedYear} : ${d.value} (${(
+          .html(
+            `${continentNames[d.index]} in ${selectedYear}<br> : ${d.value} (${(
               (d.value * 100) /
               worldPopn
             ).toFixed(2)}%)`
           )
           .css({
             color: "#fff",
-            display: "block",
+            display: "inline-block",
             // width: "12rem",
             position: "relative",
             "background-color": COLORS[d.index],
