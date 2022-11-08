@@ -997,6 +997,7 @@ function appendHvrLbl() {
     .append("div")
     .attr("class", "clickMeLabel")
     .style("position", "absolute")
+    .style("display", "none")
     .style("z-index", "100")
     .style("font-weight", "900")
     .style("background-color", "#D64933")
