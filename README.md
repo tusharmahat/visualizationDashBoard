@@ -18,7 +18,8 @@ the dataset.
      countries data for the continent.
     
 link: https://info-viz-dashboard.onrender.com
-
+##
+![](gify.gif)
 ## Screenshots
 ### World statistics in scatter plot
 ![image](https://user-images.githubusercontent.com/44932604/115996483-d23feb00-a5b5-11eb-8148-43040e3d1f88.png)
